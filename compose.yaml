@@ -1,0 +1,20 @@
+services:
+  backend:
+    build: ./tms_backend
+    container_name: backend-container
+    ports:
+      - "${BACKEND_PORT_NUMBER}:${BACKEND_PORT_NUMBER}"
+    volumes:
+      - ./tms_backend:/app
+    env_file:
+      - ./tms_backend/.env
+  frontend:
+    build: ./tms_frontend
+    container_name: frontend-container
+    ports:
+      - "${FRONTEND_PORT_NUMBER}:${FRONTEND_PORT_NUMBER}"
+    volumes:
+      - ./tms_frontend:/app
+      - /app/node_modules
+    env_file:
+      - ./tms_frontend/.env
