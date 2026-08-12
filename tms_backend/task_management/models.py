@@ -12,7 +12,7 @@ class Category(models.Model):
     previous_version = models.ForeignKey("self", on_delete=models.PROTECT, blank=True, null=True, related_name="future_version")
     version_number_major = models.IntegerField(default=1)
     version_number_minor = models.IntegerField(default=0)
-    superior = models.ForeignKey("self", on_delete=models.PROTECT, related_name="subordinates")
+    superior = models.ForeignKey("self", on_delete=models.PROTECT, related_name="subordinates", null=True)
     superiors_additional = models.ManyToManyField("self", blank=True, symmetrical=False, related_name="subordinates_additional")
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
