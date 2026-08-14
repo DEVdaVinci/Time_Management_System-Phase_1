@@ -16,9 +16,22 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from . import views
+from .viewsets import *
+
+
+
+
+
+router = DefaultRouter()
+router.register("categories", CategoryViewSet)
+router.register("tags", TagViewSet)
+router.register("actions", ActionViewSet)
+router.register("activities", ActivityViewSet)
+router.register("tasks", TaskViewSet)
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/', include('task_management.urls')),
+    path("", include(router.urls)),
 ]
