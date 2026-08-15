@@ -6,6 +6,24 @@ type ObjectsPageProps = {
   model_name: string;
 };
 
+function snakeCase2Traditional(text: string)
+{
+    const [, setTraditional] = useState("")
+    let words:string[] = text.split("_")
+    
+    
+    let traditional:string = words.map((word)=> {
+        let firstLetter:string = word.charAt(0).toUpperCase()
+        let word_body:string = word.length>2 ? word.substring(1) : ""
+        let newWord:string = firstLetter + word_body
+        console.log(`newWord: ${newWord}`)
+        return newWord + " "
+        
+    }).join().trimEnd()
+
+    return traditional
+}
+
 export default function ObjectsPage({model_name}:ObjectsPageProps) {
     const [objects, setObjects] = useState([])
     
@@ -32,7 +50,7 @@ export default function ObjectsPage({model_name}:ObjectsPageProps) {
             
             <div className="card">
                 <div className="card-header">
-                    ObjectsPage
+                    {snakeCase2Traditional(model_name)} Page
                 </div>
                 <div className="card-body">
                     {objects.map((object) => (

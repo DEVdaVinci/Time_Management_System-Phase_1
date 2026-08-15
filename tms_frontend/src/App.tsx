@@ -3,10 +3,18 @@ import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 import './App.css'
-import { Routes, Route } from "react-router"
+import { Routes, Route, useParams } from "react-router"
 import {Homepage} from './pages/homepage'
 import ActionsPage from './pages/ActionsPage'
 import ObjectsPage from './pages/ListObjectsPage'
+
+
+export function ListObjectsRoute() {
+  const { model_name } = useParams()
+
+  return <ObjectsPage model_name={model_name}/>
+
+}
 
 function App() {
   
@@ -15,11 +23,7 @@ function App() {
     <>
       <Routes>
         <Route index element={ <Homepage/> }/>
-        <Route path="Categories" element={ <ObjectsPage model_name='categories'/>}/>
-        <Route path="Tags" element={<ObjectsPage model_name='tags'/>}/>
-        <Route path="Tasks" element={<ObjectsPage model_name='tasks'/>}/>
-        <Route path="Activities" element={<ObjectsPage model_name='activities'/>}/>
-        <Route path="Actions" element={<ActionsPage/>}/>
+        <Route path="list/:model_name" element={ <ListObjectsRoute/>}/>
         <Route path="*" element={<div>Page Not Found!!!!!!</div>}/>
       </Routes>
       
