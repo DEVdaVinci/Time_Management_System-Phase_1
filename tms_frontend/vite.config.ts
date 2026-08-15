@@ -13,7 +13,7 @@ export default defineConfig(({ mode }) => {
 
     server: {
       host: '0.0.0.0',
-      port: Number(env.PORT_NUMBER) || 5173,
+      port: Number(env.VITE_PORT_NUMBER) || 5173,
       watch: {
         usePolling: true,
       },

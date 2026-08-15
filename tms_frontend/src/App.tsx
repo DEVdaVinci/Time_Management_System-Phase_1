@@ -5,6 +5,7 @@ import heroImg from './assets/hero.png'
 import './App.css'
 import { Routes, Route } from "react-router"
 import {Homepage} from './pages/homepage'
+import ActionsPage from './pages/ActionsPage'
 
 function App() {
   
@@ -17,9 +18,8 @@ function App() {
         <Route path="Tags" element={<div>Tags Page</div>}/>
         <Route path="Tasks" element={<div>Tasks Page</div>}/>
         <Route path="Activities" element={<div>Activities Page</div>}/>
-        <Route path="Actions" element={<div>Actions Page</div>}/>
+        <Route path="Actions" element={<ActionsPage/>}/>
         <Route path="*" element={<div>Page Not Found!!!!!!</div>}/>
-        
       </Routes>
       
     </>
