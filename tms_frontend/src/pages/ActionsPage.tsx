@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import TaskRow from '../ui_components/TaskRow';
 
 
 
@@ -33,13 +34,7 @@ export default function ActionsPage() {
                 </div>
                 <div className="card-body">
                     {actions.map((Action) => (
-                        <div key={Action.id} className='p-1'>
-                            <button type="button" className="btn btn-secondary">
-                                {Action.name}
-                            </button>
-                            <button type="button" className="btn btn-outline-secondary">Edit</button>
-                            <button type="button" className="btn btn-outline-secondary">Delete</button>
-                        </div>
+                        <TaskRow id={Action.id.toString()} title={Action.name} description={Action.description} completed={false} starred={true} onEdit={(id) => {console.log(`onEdit(id=${id})...`)}} onDelete={(id) => {console.log(`onDelete(id=${id})...`)}}/>
                     ))}
                     <a href="/" className="btn btn-primary">Home</a>
                 </div>
