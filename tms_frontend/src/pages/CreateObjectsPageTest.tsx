@@ -3,6 +3,8 @@ import axios from 'axios'
 
 import { useNavigate } from "react-router";
 
+import { models } from "./models";
+
 
 
 type CreatePageProps = {
@@ -35,6 +37,8 @@ export default function CreatePage({model_name}:CreatePageProps) {
     
     useEffect(() => {
         console.log("[CreatePage->UseEfect()]")
+
+        modelInfo = models.tag
         
         const hostName: string = import.meta.env.VITE_BACKEND_HOST
         const portNumber: number = import.meta.env.VITE_BACKEND_PORT_NUMBER
@@ -42,7 +46,7 @@ export default function CreatePage({model_name}:CreatePageProps) {
 
 
 
-        const payload = {name: "react create test#1",    description: "This tag was created rom the frontend. Made with test create page. Payload/data was a manually created dictionary",};
+        const payload:modelInfo.modelClass = {name: "react create test#1",    description: "This tag was created rom the frontend. Made with test create page. Payload/data was a manually created dictionary",};
 
         console.log(`creating: \"${url}\" ...`);
         //fetch(url).then((response) => { return response.json() }).then((data)=> {setObjects(data)});        
@@ -63,7 +67,7 @@ export default function CreatePage({model_name}:CreatePageProps) {
                     Create {snakeCase2Traditional(model_name)} Page (Test)
                 </div>
                 <div className="card-body">
-                    Loding...
+                    
                 </div>
             </div>
             
