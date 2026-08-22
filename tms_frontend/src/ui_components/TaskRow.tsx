@@ -7,16 +7,16 @@ type TaskRowProps = {
   description: string;
   completed?: boolean;
   starred?: boolean;
-  onEdit: (id: string) => void;
-  onDelete: (id: string) => void;
+  onEdit?: (id: string) => void;
+  onDelete?: (id: string) => void;
 };
 
 export default function TaskRow({
   id,
   title,
   description,
-  completed,
-  starred,
+  completed=false,
+  starred=false,
   
   onEdit,
   onDelete,
