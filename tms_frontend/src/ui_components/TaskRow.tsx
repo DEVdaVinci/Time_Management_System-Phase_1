@@ -5,8 +5,8 @@ type TaskRowProps = {
   id: string;
   title: string;
   description: string;
-  completed: boolean;
-  starred: boolean;
+  completed?: boolean;
+  starred?: boolean;
   onEdit: (id: string) => void;
   onDelete: (id: string) => void;
 };

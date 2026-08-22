@@ -218,6 +218,10 @@ export type ShallowModel = Category_Write_Detail | Tag_Write_Detail
 
 export type ModelNames = (typeof model_names)[number];
 
+
+export type ListResponse<M extends ModelNames> =
+  ModelTypes<M>["Read_shallow"];
+
 export type CreateRequest<M extends ModelNames> =
   ModelTypes<M>["Request_create"];
 
