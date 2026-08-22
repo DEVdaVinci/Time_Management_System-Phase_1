@@ -3,12 +3,13 @@ import axios from 'axios'
 
 import { useNavigate } from "react-router";
 
-import { models } from "./models";
+import type { ModelNames, ModelTypes, ModelInfo, CreateRequest } from '../utils/models';
+import { models } from '../utils/models';
 
 
 
-type CreatePageProps = {
-  model_name: string;
+type CreatePageProps<M extends ModelNames> = {
+  model_name: M;
 };
 
 
@@ -31,31 +32,60 @@ function snakeCase2Traditional(text: string)
     return traditional
 }
 
-export default function CreatePage({model_name}:CreatePageProps) {
+
+function createPayload_test<M extends ModelNames>(modelName: M, payload: CreateRequest<M>)
+{
+    return payload;
+}
+
+async function createObject<M extends ModelNames>(modelName: M, payload: CreateRequest<M>, modelInfo:ModelInfo) {
+    const hostName: string = import.meta.env.VITE_BACKEND_HOST
+    const portNumber: number = import.meta.env.VITE_BACKEND_PORT_NUMBER
+    const url:string = `http://${hostName}:${portNumber.toString()}/${modelInfo.APIs.list}`
+
+    
+
+
+    
+    console.log(`creating: \"${url}\" ...`);
+    //fetch(url).then((response) => { return response.json() }).then((data)=> {setObjects(data)});        
+    axios.post(url, payload).then((response) => {console.log(response);});
+
+    
+}
+
+
+
+export default function CreatePage<M extends ModelNames>({model_name}:CreatePageProps<M>) {
 
     const navigate = useNavigate();
+    
+    const [values, setValues] = useState<CreateRequest<M>>({})
+    const modelInfo:ModelInfo = models[model_name];
     
     useEffect(() => {
         console.log("[CreatePage->UseEfect()]")
 
-        modelInfo = models.tag
         
-        const hostName: string = import.meta.env.VITE_BACKEND_HOST
-        const portNumber: number = import.meta.env.VITE_BACKEND_PORT_NUMBER
-        const url:string = `http://${hostName}:${portNumber.toString()}/api/${model_name}/`
+
+        
+        setValues({name: "react create test#1",    description: `This ${model_name} was created rom the frontend. Made with test create page. Payload/data was a manually created dictionary`,});
 
 
-
-        const payload:modelInfo.modelClass = {name: "react create test#1",    description: "This tag was created rom the frontend. Made with test create page. Payload/data was a manually created dictionary",};
-
-        console.log(`creating: \"${url}\" ...`);
-        //fetch(url).then((response) => { return response.json() }).then((data)=> {setObjects(data)});        
-        axios.post(url, payload).then((response) => {console.log(response);});
-
-        navigate("");
+        
+        
+        
         
        
     }, []);
+
+    async function handleSubmit()
+    {
+        const payload = createPayload_test(model_name, values);
+        await createObject(model_name, payload, modelInfo);
+
+        navigate("");
+    }
     
 
     
@@ -67,8 +97,17 @@ export default function CreatePage({model_name}:CreatePageProps) {
                     Create {snakeCase2Traditional(model_name)} Page (Test)
                 </div>
                 <div className="card-body">
-                    
+                    <form onSubmit={handleSubmit}>
+                        <button
+                            type="submit"
+                            className="btn btn-primary"
+                        >
+                            Submit
+                        </button>
+                        
+                    </form>
                 </div>
+                
             </div>
             
                     
