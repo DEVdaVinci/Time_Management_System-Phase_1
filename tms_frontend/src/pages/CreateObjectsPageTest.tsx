@@ -3,7 +3,7 @@ import axios from 'axios'
 
 import { useNavigate } from "react-router";
 
-import type { ModelNames, ModelTypes, ModelInfo, CreateRequest } from '../utils/models';
+import type { ModelNames, ModelTypes, ModelInfo, CreateRequest, Category_Write_List } from '../utils/models';
 import { models } from '../utils/models';
 
 
@@ -39,6 +39,7 @@ function createPayload_test<M extends ModelNames>(modelName: M, payload: CreateR
 }
 
 async function createObject<M extends ModelNames>(modelName: M, payload: CreateRequest<M>, modelInfo:ModelInfo) {
+    console.log("[CreateObjectsPageTest.tsx -> createObject()]")
     const hostName: string = import.meta.env.VITE_BACKEND_HOST
     const portNumber: number = import.meta.env.VITE_BACKEND_PORT_NUMBER
     const url:string = `http://${hostName}:${portNumber.toString()}/${modelInfo.APIs.list}`
@@ -62,6 +63,7 @@ export default function CreatePage<M extends ModelNames>({model_name}:CreatePage
     
     const [values, setValues] = useState<CreateRequest<M>>({})
     const modelInfo:ModelInfo = models[model_name];
+   
     
     useEffect(() => {
         console.log("[CreatePage->UseEfect()]")
@@ -69,7 +71,7 @@ export default function CreatePage<M extends ModelNames>({model_name}:CreatePage
         
 
         
-        setValues({name: "react create test#1",    description: `This ${model_name} was created rom the frontend. Made with test create page. Payload/data was a manually created dictionary`,});
+        setValues({name: "react create test#6 IF YOU ARE READING THIS THE TEST FAILED!!!!!!",    description: `IF YOU ARE READING THIS THE TEST FAILED!!!!!! This ${model_name} was created from the frontend. Made with test create page. Payload/data was suposed to be user created using the form. I developed and implimented the model registry (i.e. ModelInfo and ModelTypes) IF YOU ARE READING THIS THE TEST FAILED!!!!!!`,});
 
 
         
@@ -81,10 +83,12 @@ export default function CreatePage<M extends ModelNames>({model_name}:CreatePage
 
     async function handleSubmit()
     {
+        console.log("[CreateObjectsPageTest.tsx -> handleSubmit()]")
         const payload = createPayload_test(model_name, values);
+        console.log(`Payload: ${payload}`)
         await createObject(model_name, payload, modelInfo);
 
-        navigate("");
+        navigate("/");
     }
     
 
@@ -98,6 +102,27 @@ export default function CreatePage<M extends ModelNames>({model_name}:CreatePage
                 </div>
                 <div className="card-body">
                     <form onSubmit={handleSubmit}>
+
+
+                        {
+                            modelInfo.formConfig.feilds.map((field) => (
+                                <>
+                                    <label htmlFor={field.label_for} className={field.input_class}>{field.name}</label>
+                                    <input type={field.input_type} className={field.input_class} id={field.input_id} onChange={ event => {
+                                        console.log(`[CreateObjectsPageTest.tsx -> onChange(): ${field.name}]`)
+                                        values[field.name]=event.target.value;
+                                        setValues({ ...values });
+
+                                        console.log(`values[field.name]: ${values[field.name]}`)
+                                        console.log(`values: ${values}`)
+                                        console.log(`values.keys: ${values.keys}`)
+                                        }}/>
+                                </>
+                            )
+                            )
+                        }
+
+
                         <button
                             type="submit"
                             className="btn btn-primary"

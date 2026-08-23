@@ -304,13 +304,22 @@ export const models:Record<ModelNames, ModelInfo> = {
                 feilds:
                     [
                         {
-                            kind: "",
-                            name: "",
-                            label_for: "",
+                            kind: "base",
+                            name: "name",
+                            label_for: "name",
                             label_class: "",
-                            input_type: "",
-                            input_class: "",
-                            input_id: "",
+                            input_type: "text",
+                            input_class: "form-control",
+                            input_id: "name",
+                        },
+                        {
+                            kind: "base",
+                            name: "description",
+                            label_for: "description",
+                            label_class: "",
+                            input_type: "text",
+                            input_class: "form-control",
+                            input_id: "description",
                         },
                     ]
             },
@@ -329,13 +338,22 @@ export const models:Record<ModelNames, ModelInfo> = {
                 feilds: 
                     [
                         {
-                            kind: "",
-                            name: "",
-                            label_for: "",
+                            kind: "base",
+                            name: "name",
+                            label_for: "name",
                             label_class: "",
-                            input_type: "",
-                            input_class: "",
-                            input_id: "",
+                            input_type: "text",
+                            input_class: "form-control",
+                            input_id: "name",
+                        },
+                        {
+                            kind: "base",
+                            name: "description",
+                            label_for: "description",
+                            label_class: "",
+                            input_type: "text",
+                            input_class: "form-control",
+                            input_id: "description",
                         },
                     ]
             },
