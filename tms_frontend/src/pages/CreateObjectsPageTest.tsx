@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 
 import type { ModelNames, ModelTypes, ModelInfo, CreateRequest, Category_Write_List } from '../utils/models';
 import { models } from '../utils/models';
-
+import CreateForm from '../ui_components/CreateForm';
 
 
 type CreatePageProps<M extends ModelNames> = {
@@ -24,7 +24,6 @@ function snakeCase2Traditional(text: string)
         let firstLetter:string = word.charAt(0).toUpperCase()
         let word_body:string = word.length>2 ? word.substring(1) : ""
         let newWord:string = firstLetter + word_body
-        console.log(`newWord: ${newWord}`)
         return newWord + " "
         
     }).join().trimEnd()
@@ -33,7 +32,7 @@ function snakeCase2Traditional(text: string)
 }
 
 
-function createPayload_test<M extends ModelNames>(modelName: M, payload: CreateRequest<M>)
+function createPayload_test<M extends ModelNames>(payload: CreateRequest<M>)
 {
     return payload;
 }
@@ -66,7 +65,7 @@ export default function CreatePage<M extends ModelNames>({model_name}:CreatePage
    
     
     useEffect(() => {
-        console.log("[CreatePage->UseEfect()]")
+        console.log("[CreatePage->UseEfect()] START")
 
         
 
@@ -77,18 +76,38 @@ export default function CreatePage<M extends ModelNames>({model_name}:CreatePage
         
         
         
-        
+        console.log("[CreatePage->UseEfect()]")
        
     }, []);
 
     async function handleSubmit()
     {
         console.log("[CreateObjectsPageTest.tsx -> handleSubmit()]")
-        const payload = createPayload_test(model_name, values);
+        const payload = createPayload_test(values);
         console.log(`Payload: ${payload}`)
         await createObject(model_name, payload, modelInfo);
 
         navigate("/");
+    }
+
+    function onChange(fieldName: string, value:any)
+    {
+
+        console.log(`[CreateObjectsPageTest.tsx -> onChange(): ${fieldName}]`)
+        setValues((previousValues: CreateRequest<M>) => (
+            {
+                ...previousValues,
+                [fieldName]: value,
+            }
+        )
+        );
+
+
+        console.log(`values[fieldName]: ${values[fieldName]}`)
+        console.log(`values: ${values}`)
+        console.log(`values.keys: ${values.keys}`)
+        
+
     }
     
 
@@ -101,36 +120,7 @@ export default function CreatePage<M extends ModelNames>({model_name}:CreatePage
                     Create {snakeCase2Traditional(model_name)} Page (Test)
                 </div>
                 <div className="card-body">
-                    <form onSubmit={handleSubmit}>
-
-
-                        {
-                            modelInfo.formConfig.feilds.map((field) => (
-                                <>
-                                    <label htmlFor={field.label_for} className={field.input_class}>{field.name}</label>
-                                    <input type={field.input_type} className={field.input_class} id={field.input_id} onChange={ event => {
-                                        console.log(`[CreateObjectsPageTest.tsx -> onChange(): ${field.name}]`)
-                                        values[field.name]=event.target.value;
-                                        setValues({ ...values });
-
-                                        console.log(`values[field.name]: ${values[field.name]}`)
-                                        console.log(`values: ${values}`)
-                                        console.log(`values.keys: ${values.keys}`)
-                                        }}/>
-                                </>
-                            )
-                            )
-                        }
-
-
-                        <button
-                            type="submit"
-                            className="btn btn-primary"
-                        >
-                            Submit
-                        </button>
-                        
-                    </form>
+                    <CreateForm form={modelInfo.formConfig} model_name={model_name} handleChange={onChange} handleSubmit={handleSubmit}/>
                 </div>
                 
             </div>

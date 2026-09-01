@@ -1,61 +1,8 @@
-const model_names = ["user", "account", "category", "tag", "action", "activity", "task"] as const;
+const model_names = ["category", "tag"] as const;
+
+//const model_names = ["user", "account", "category", "tag", "action", "activity", "task"] as const;
 
 
-
-
-
-
-interface API_Read {
-    "single"?: string;
-    "multiple"?: string;
-}
-
-interface ModelAPIs {
-    "create"?: string;
-    "read"?: API_Read;
-    "update"?: string;
-    "partial_update"?: string;
-    "delete"?: string;
-    list: string;
-    detailBase: string;
-    detail(detailBase:string, id:string): string;
-}
-
-function getDetailAPI(detailBase:string, id:string)
-{
-    return detailBase + id + "/";
-}
-
-
-export type ModelInfo = {
-    model_name: string;
-    plural_name: string;
-    title: string;
-    formConfig: FormConfig;
-    APIs: ModelAPIs;
-}
-
-
-
-
-type FormBaseField = {
-    kind: string,
-    name: string;
-    label_for: string;
-    label_class: string;
-    input_type: string;
-    input_class: string;
-    input_id: string;
-}
-type FormConnectionField = FormBaseField & {
-    api: string;
-    objects: [];
-}
-type FormField = FormBaseField | FormConnectionField;
-
-type FormConfig = {
-    feilds: FormField[];//an array of FormFields and FormConnectionField each element o the array van be either a FormField or a FormConnectionField
-}
 
 
 
@@ -292,6 +239,65 @@ UpdateResponse, DeleteResponse = {status}
 
 
 
+
+
+
+
+
+interface API_Read {
+    "single"?: string;
+    "multiple"?: string;
+}
+
+interface ModelAPIs {
+    "create"?: string;
+    "read"?: API_Read;
+    "update"?: string;
+    "partial_update"?: string;
+    "delete"?: string;
+    list: string;
+    detailBase: string;
+    detail(detailBase:string, id:string): string;
+}
+
+function getDetailAPI(detailBase:string, id:string)
+{
+    return detailBase + id + "/";
+}
+
+
+export type ModelInfo = {
+    model_name: string;
+    plural_name: string;
+    title: string;
+    formConfig: FormConfig;
+    APIs: ModelAPIs;
+}
+
+
+
+
+export type FormBaseField = {
+    kind: string,
+    name: string;
+    connection?: ModelNames;
+    multiple?: boolean;
+    input_id?: string;
+    input_class?: string;
+
+    rows?: number;
+}
+
+export type FormField = FormBaseField;
+
+export type FormConfig = {
+    feilds: FormField[];//an array of FormFields and FormConnectionField each element o the array van be either a FormField or a FormConnectionField
+}
+
+
+
+
+
 //I want this to be a dictionary of ModelInfo objects
 //I was originally going to make this an array of dictionaries or ModelInfo objects but realized I want to access info via the model name not an index (i.e. number) and searching to ind a specific model name seems too cumbersome and inefficient
 export const models:Record<ModelNames, ModelInfo> = {
@@ -304,23 +310,45 @@ export const models:Record<ModelNames, ModelInfo> = {
                 feilds:
                     [
                         {
-                            kind: "base",
+                            kind: "text",
                             name: "name",
-                            label_for: "name",
-                            label_class: "",
-                            input_type: "text",
-                            input_class: "form-control",
-                            input_id: "name",
                         },
                         {
-                            kind: "base",
+                            kind: "text_area",
                             name: "description",
-                            label_for: "description",
-                            label_class: "",
-                            input_type: "text",
-                            input_class: "form-control",
-                            input_id: "description",
                         },
+                        {
+                            kind: "connection",
+                            name: "previous_version",
+                            connection: "category",
+                            multiple: false,
+                        },
+                        {
+                            kind: "integer",
+                            name: "version_number_major",
+                        },
+                        {
+                            kind: "integer",
+                            name: "version_number_minor",
+                        },
+                        {
+                            kind: "connection",
+                            name: "superior",
+                            connection: "category",
+                            multiple: false,
+                        },
+                        {
+                            kind: "connection",
+                            name: "superiors_additional",
+                            connection: "category",
+                            multiple: true,
+                        },
+                        {
+                            kind: "checkbox",
+                            name: "is_root",
+                        },
+
+                        
                     ]
             },
         APIs: {
@@ -338,22 +366,32 @@ export const models:Record<ModelNames, ModelInfo> = {
                 feilds: 
                     [
                         {
-                            kind: "base",
+                            kind: "text",
                             name: "name",
-                            label_for: "name",
-                            label_class: "",
-                            input_type: "text",
-                            input_class: "form-control",
-                            input_id: "name",
                         },
                         {
-                            kind: "base",
+                            kind: "text_area",
                             name: "description",
-                            label_for: "description",
-                            label_class: "",
-                            input_type: "text",
-                            input_class: "form-control",
-                            input_id: "description",
+                        },
+                        {
+                            kind: "connection",
+                            name: "previous_version",
+                            connection: "tag",
+                            multiple: false,
+                        },
+                        {
+                            kind: "integer",
+                            name: "version_number_major",
+                        },
+                        {
+                            kind: "integer",
+                            name: "version_number_minor",
+                        },
+                        {
+                            kind: "connection",
+                            name: "superiors",
+                            connection: "tag",
+                            multiple: true,
                         },
                     ]
             },
