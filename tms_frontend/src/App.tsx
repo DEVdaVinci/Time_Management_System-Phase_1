@@ -8,6 +8,8 @@ import {Homepage} from './pages/homepage'
 import ActionsPage from './pages/ActionsPage'
 import ObjectsPage from './pages/ListObjectsPage'
 import CreatePage from './pages/CreateObjectsPageTest'
+import UpdatePage from './pages/UpdateObjectsPageTest'
+
 
 
 export function ListObjectsRoute() {
@@ -24,6 +26,14 @@ export function CreateObjectsRoute() {
 
 }
 
+export function UpdateObjectsRoute() {
+  const { model_name } = useParams()
+  const { id } = useParams()
+
+  return <UpdatePage model_name={model_name} id={id}/>
+
+}
+
 function App() {
   
 
@@ -33,6 +43,7 @@ function App() {
         <Route index element={ <Homepage/> }/>
         <Route path="list/:model_name" element={ <ListObjectsRoute/>}/>
         <Route path="create/:model_name" element={ <CreateObjectsRoute/>}/>
+        <Route path="edit/:model_name/:id" element={ <UpdateObjectsRoute/>}/>
         <Route path="*" element={<div>Page Not Found!!!!!!</div>}/>
       </Routes>
       

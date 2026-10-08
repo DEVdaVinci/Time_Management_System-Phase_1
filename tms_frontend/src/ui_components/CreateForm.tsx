@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react'
 
-import { models, type FormConfig, type FormBaseField, type ModelNames } from "../utils/models";
+import { models, type FormConfig, type FormBaseField, type ModelNames, type UpdateRequest } from "../utils/models";
 import { listRequest } from "../utils/apiRequests";
 import FormField from "./FormField";
 
-type CreateFormProps = {
-    model_name: ModelNames;
+type CreateFormProps<M extends ModelNames> = {
+    model_name: M;
     form: FormConfig;
     handleChange: (feildName:string, value:string) => void;
     handleSubmit: () => void;
+    object?: UpdateRequest<M>;
 }
 
-export default function CreateForm({model_name, form, handleChange, handleSubmit}:CreateFormProps) {
+export default function CreateForm<M extends ModelNames>({model_name, form, handleChange, handleSubmit, object}:CreateFormProps<M>) {
     const [connectionObjects, setConnectionObjects] = useState<Partial<Record<ModelNames, any[]>>>({})
 
 
@@ -59,10 +60,13 @@ export default function CreateForm({model_name, form, handleChange, handleSubmit
   return (
     <form onSubmit={handleSubmit}>
         {form.feilds.map((field) => (
-            field.connection ?
-            <FormField key={field.name+"_formField"} field={field} objects={connectionObjects[field.connection!]} handleChange={handleChange}/>
+
+            
+
+            field.connection ? 
+            <FormField key={field.name+"_formField"} field={field} objects={connectionObjects[field.connection!]} handleChange={handleChange} object={object} />
             :
-            <FormField key={field.name+"_formField"} field={field} handleChange={handleChange}/>
+            <FormField key={field.name+"_formField"} field={field} handleChange={handleChange} object={object}/>
 
             
         ))}

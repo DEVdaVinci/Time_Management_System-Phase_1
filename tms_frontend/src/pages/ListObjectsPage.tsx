@@ -51,7 +51,7 @@ export default function ObjectsPage<M extends ModelNames>({model_name}:ObjectsPa
     
     function editButtonClicked(id:string)
     {
-        navigate(`/edit/${model_name}?id:${id}`)
+        navigate(`/edit/${model_name}/${id}`)
     }
     function deleteButtonClicked(id:string)
     {
