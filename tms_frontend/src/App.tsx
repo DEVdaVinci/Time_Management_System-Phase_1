@@ -52,7 +52,7 @@ function App() {
         <Route index element={ <Homepage/> }/>
         <Route path="list/:model_name" element={ <ListObjectsRoute/>}/>
         <Route path="create/:model_name" element={ <CreateObjectsRoute/>}/>
-        <Route path="read/:model_name/:id" element={ <UpdateObjectsRoute/>}/>
+        <Route path="read/:model_name/:id" element={ <ReadObjectsRoute/>}/>
         <Route path="edit/:model_name/:id" element={ <UpdateObjectsRoute/>}/>
         <Route path="*" element={<div>Page Not Found!!!!!!</div>}/>
       </Routes>
