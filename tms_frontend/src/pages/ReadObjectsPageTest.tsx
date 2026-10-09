@@ -65,7 +65,7 @@ export default function ReadPage<M extends ModelNames>({model_name, id}:ReadPage
             
             <div className="card">
                 <div className="card-header">
-                    Update {snakeCase2Traditional(model_name)} Page (Test)
+                    Read {snakeCase2Traditional(model_name)} Page (Test)
                 </div>
                 <div className="card-body">
                     <ReadObject form={modelInfo.formConfig} model_name={model_name} object={values}/>
