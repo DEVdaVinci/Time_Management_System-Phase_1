@@ -49,6 +49,10 @@ export default function ObjectsPage<M extends ModelNames>({model_name}:ObjectsPa
        
     }, []);
     
+    function readButtonClicked(id:string)
+    {
+        navigate(`/read/${model_name}/${id}`)
+    }
     function editButtonClicked(id:string)
     {
         navigate(`/edit/${model_name}/${id}`)
@@ -69,7 +73,7 @@ export default function ObjectsPage<M extends ModelNames>({model_name}:ObjectsPa
                 </div>
                 <div className="card-body">
                     {objects.map((object) => (
-                        <TaskRow id={object.id.toString()} title={object.name} description={object.description} onEdit={editButtonClicked} onDelete={deleteButtonClicked}/>
+                        <TaskRow id={object.id.toString()} title={object.name} description={object.description} onRead={readButtonClicked} onEdit={editButtonClicked} onDelete={deleteButtonClicked}/>
                     ))}
                     <a href="/" className="btn btn-primary">Home</a>
                 </div>

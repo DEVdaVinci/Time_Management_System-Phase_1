@@ -7,6 +7,8 @@ type TaskRowProps = {
   description: string;
   completed?: boolean;
   starred?: boolean;
+  
+  onRead?: (id: string) => void;
   onEdit?: (id: string) => void;
   onDelete?: (id: string) => void;
 };
@@ -18,6 +20,7 @@ export default function TaskRow({
   completed=false,
   starred=false,
   
+  onRead,
   onEdit,
   onDelete,
 }: TaskRowProps) {
@@ -34,21 +37,19 @@ export default function TaskRow({
         {isStarred ? "★" : "☆"}
       </button>
 
-      {/* Main content/navigation action */}
-      <div className="flex-grow-1 overflow-hidden">
-        <Link          to={`/action/?id=${id}`}          className="stretched-link text-decoration-none text-reset"        >
-          <strong>{title}</strong>
-          {description.length>0 ? <span className="text-secondary ms-2">({description})</span> : null}
-        </Link>
-      </div>
+      {/* Main content / Independent clickable control */}
+      <button        type="button"        className="btn btn-sm btn-outline-warning position-relative z-2"        aria-label={`View ${title}`}        onClick={() => onRead!(id)}      >
+        <strong>{title}</strong>
+        {description.length>0 ? <span className="text-secondary ms-2">({description})</span> : null}
+      </button>
 
       {/* Independent clickable control */}
-      <button        type="button"        className="btn btn-sm btn-outline-warning position-relative z-2"        aria-label={`Edit ${title}`}        onClick={() => onEdit(id)}      >
+      <button        type="button"        className="btn btn-sm btn-outline-warning position-relative z-2"        aria-label={`Edit ${title}`}        onClick={() => onEdit!(id)}      >
         Edit
       </button>
 
       {/* Independent clickable control */}
-      <button        type="button"        className="btn btn-sm btn-outline-danger position-relative z-2"        aria-label={`Delete ${title}`}        onClick={() => onDelete(id)}      >
+      <button        type="button"        className="btn btn-sm btn-outline-danger position-relative z-2"        aria-label={`Delete ${title}`}        onClick={() => onDelete!(id)}      >
         Delete
       </button>
     </div>

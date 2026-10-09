@@ -9,6 +9,7 @@ import ActionsPage from './pages/ActionsPage'
 import ObjectsPage from './pages/ListObjectsPage'
 import CreatePage from './pages/CreateObjectsPageTest'
 import UpdatePage from './pages/UpdateObjectsPageTest'
+import ReadPage from './pages/ReadObjectsPageTest'
 
 
 
@@ -23,6 +24,14 @@ export function CreateObjectsRoute() {
   const { model_name } = useParams()
 
   return <CreatePage model_name={model_name}/>
+
+}
+
+export function ReadObjectsRoute() {
+  const { model_name } = useParams()
+  const { id } = useParams()
+
+  return <ReadPage model_name={model_name} id={id}/>
 
 }
 
@@ -43,6 +52,7 @@ function App() {
         <Route index element={ <Homepage/> }/>
         <Route path="list/:model_name" element={ <ListObjectsRoute/>}/>
         <Route path="create/:model_name" element={ <CreateObjectsRoute/>}/>
+        <Route path="read/:model_name/:id" element={ <UpdateObjectsRoute/>}/>
         <Route path="edit/:model_name/:id" element={ <UpdateObjectsRoute/>}/>
         <Route path="*" element={<div>Page Not Found!!!!!!</div>}/>
       </Routes>

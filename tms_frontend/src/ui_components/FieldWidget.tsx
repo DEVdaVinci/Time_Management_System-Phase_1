@@ -4,11 +4,10 @@ import type { FieldWidget, ModelNames } from "../utils/models";
 type FieldWidgetProps = {
     field: FieldWidget;
     objects?: any[];
-    handleChange: (feildName:string, value:string) => void;
     defaultValue?: any | any[];
     object: any;
 }
-export default function FieldWidget({field, objects, handleChange, object, defaultValue}: FieldWidgetProps) {
+export default function FieldWidget({field, objects, object, defaultValue}: FieldWidgetProps) {
     const connectionObjects = objects ? objects : []
     
     if (field.kind == "text" || field.kind == "text_area" || field.kind == "number" || field.kind == "integer" || field.kind == "checkbox") {
