@@ -5,7 +5,7 @@ import type { ListResponse, ModelInfo, ModelNames, UpdateRequest, CreateRequest,
 export async function listRequest<M extends ModelNames>(API_Endpoint: string, model_name:M): Promise<ListResponse<M>[]> {
     const hostName: string = import.meta.env.VITE_BACKEND_HOST
     const portNumber: number = import.meta.env.VITE_BACKEND_PORT_NUMBER
-    const url:string = `http://${hostName}:${portNumber.toString()}/${API_Endpoint}`
+    const url:string = `http://${hostName}:${portNumber.toString()}/${API_Endpoint}/`
 
     console.log(`[apiRequests.tsx > listRequest()] fetching: \"${url}\" ...`);
     //fetch(url).then((response:any) => { return response.json() }).then((data)=> {setObjects(data)});
@@ -30,7 +30,7 @@ export async function createRequest<M extends ModelNames>(modelName: M, payload:
 export async function readRequest<M extends ModelNames>(modelName: M, id:string, modelInfo:ModelInfo): Promise<ReadResponse<M>> {
     const hostName: string = import.meta.env.VITE_BACKEND_HOST
     const portNumber: number = import.meta.env.VITE_BACKEND_PORT_NUMBER
-    const url:string = `http://${hostName}:${portNumber.toString()}/${modelInfo.APIs.detailBase}/${id}`
+    const url:string = `http://${hostName}:${portNumber.toString()}/${modelInfo.APIs.detailBase}/${id}/`
 
     
 
@@ -47,7 +47,7 @@ export async function updateRequest<M extends ModelNames>(modelName: M, payload:
     
     const hostName: string = import.meta.env.VITE_BACKEND_HOST
     const portNumber: number = import.meta.env.VITE_BACKEND_PORT_NUMBER
-    const url:string = `http://${hostName}:${portNumber.toString()}/${modelInfo.APIs.detailBase}/${id}`
+    const url:string = `http://${hostName}:${portNumber.toString()}/${modelInfo.APIs.detailBase}/${id}/`
 
     
 
@@ -62,7 +62,7 @@ export async function updateRequest<M extends ModelNames>(modelName: M, payload:
 export async function deleteRequest<M extends ModelNames>(modelName: M, id:string, modelInfo:ModelInfo): Promise<void> {
     const hostName: string = import.meta.env.VITE_BACKEND_HOST
     const portNumber: number = import.meta.env.VITE_BACKEND_PORT_NUMBER
-    const url:string = `http://${hostName}:${portNumber.toString()}/${modelInfo.APIs.detailBase}/${id}`
+    const url:string = `http://${hostName}:${portNumber.toString()}/${modelInfo.APIs.detailBase}/${id}/`
 
     
 

@@ -3,7 +3,7 @@ import axios from 'axios'
 
 import { useNavigate } from "react-router";
 
-import type { ModelNames, ModelTypes, ModelInfo, UpdateRequest, Category_Write_List } from '../utils/models';
+import type { ModelNames, ModelTypes, ModelInfo, ReadResponse, Category_Write_List } from '../utils/models';
 import { models } from '../utils/models';
 import { updateRequest, readRequest } from '../utils/apiRequests';
 import ReadObject from '../ui_components/ReadObject';
@@ -41,7 +41,7 @@ export default function ReadPage<M extends ModelNames>({model_name, id}:ReadPage
 
     const navigate = useNavigate();
     
-    const [values, setValues] = useState<UpdateRequest<M>>({})
+    const [values, setValues] = useState<ReadResponse<M>>({})
     const modelInfo:ModelInfo = models[model_name];
    
     

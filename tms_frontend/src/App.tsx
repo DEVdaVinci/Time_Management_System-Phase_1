@@ -10,6 +10,7 @@ import ObjectsPage from './pages/ListObjectsPage'
 import CreatePage from './pages/CreateObjectsPageTest'
 import UpdatePage from './pages/UpdateObjectsPageTest'
 import ReadPage from './pages/ReadObjectsPageTest'
+import DeletePage from './pages/DeleteObjectsPageTest'
 
 
 
@@ -43,6 +44,14 @@ export function UpdateObjectsRoute() {
 
 }
 
+export function DeleteObjectsRoute() {
+  const { model_name } = useParams()
+  const { id } = useParams()
+
+  return <DeletePage model_name={model_name} id={id}/>
+
+}
+
 function App() {
   
 
@@ -54,6 +63,7 @@ function App() {
         <Route path="create/:model_name" element={ <CreateObjectsRoute/>}/>
         <Route path="read/:model_name/:id" element={ <ReadObjectsRoute/>}/>
         <Route path="edit/:model_name/:id" element={ <UpdateObjectsRoute/>}/>
+        <Route path="delete/:model_name/:id" element={ <DeleteObjectsRoute/>}/>
         <Route path="*" element={<div>Page Not Found!!!!!!</div>}/>
       </Routes>
       

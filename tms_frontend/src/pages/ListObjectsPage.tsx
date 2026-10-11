@@ -59,7 +59,7 @@ export default function ObjectsPage<M extends ModelNames>({model_name}:ObjectsPa
     }
     function deleteButtonClicked(id:string)
     {
-        navigate(`/delete/${model_name}?id:${id}`)
+        navigate(`/delete/${model_name}/${id}`)
     }
 
 
