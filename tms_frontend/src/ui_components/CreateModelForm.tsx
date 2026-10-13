@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import { models, type FormConfig, type FormBaseField, type ModelNames, type UpdateRequest } from "../utils/models";
-import type { ListResponse } from "../utils/models";
+import type { CreateRequest, ListResponse } from "../utils/models";
 import { listRequest } from "../utils/apiRequests";
 import FormField from "./FormField";
 
@@ -10,7 +10,7 @@ type CreateFormProps<M extends ModelNames> = {
     form: FormConfig;
     handleChange: (feildName:string, value:string) => void;
     handleSubmit: () => void;
-    object?: UpdateRequest<M>;
+    object: UpdateRequest<M> | CreateRequest<M>;
 }
 
 export default function CreateModelForm<M extends ModelNames>({model_name, form, handleChange, handleSubmit, object}:CreateFormProps<M>) {
@@ -66,9 +66,9 @@ export default function CreateModelForm<M extends ModelNames>({model_name, form,
             
 
             field.connection ? 
-            <FormField key={field.name+"_formField"} field={field} objects={connectionObjects[field.connection!]} handleChange={handleChange} object={object ?? {}} />
+            <FormField key={field.name+"_formField"} field={field} objects={connectionObjects[field.connection!]} handleChange={handleChange} object={object} />
             :
-            <FormField key={field.name+"_formField"} field={field} handleChange={handleChange} object={object ?? {}}/>
+            <FormField key={field.name+"_formField"} field={field} handleChange={handleChange} object={object}/>
 
             
         ))}

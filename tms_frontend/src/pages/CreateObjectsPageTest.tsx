@@ -120,7 +120,7 @@ export default function CreatePage<M extends ModelNames>({model_name}:CreatePage
                     Create {snakeCase2Traditional(model_name)} Page (Test)
                 </div>
                 <div className="card-body">
-                    <CreateModelForm form={modelInfo.formConfig} model_name={model_name} handleChange={onChange} handleSubmit={handleSubmit}/>
+                    <CreateModelForm form={modelInfo.formConfig} model_name={model_name} handleChange={onChange} handleSubmit={handleSubmit} object={values}/>
                 </div>
                 
             </div>

@@ -4,7 +4,7 @@ import type { FormField, ModelNames } from "../utils/models";
 type FormFieldProps = {
     field: FormField;
     objects?: any[];
-    handleChange: (feildName:string, value:string) => void;
+    handleChange: (feildName:string, value:any) => void;
     defaultValue?: any | any[];
     object: any;
 }
@@ -21,7 +21,7 @@ export default function FormField({field, objects, handleChange, object, default
                     className={field.input_class ?? "form-control"}
                     id={field.input_id ?? field.name}
                     onChange={(event) => handleChange(field.name, event.target.value)}
-                    value={object[field.name] ?? ""}
+                    value={object[field.name]}
                 />
             </div>
         );
@@ -35,7 +35,7 @@ export default function FormField({field, objects, handleChange, object, default
                     id={field.input_id ?? field.name}
                     rows={field.rows ?? 3}
                     onChange={(event) => handleChange(field.name, event.target.value)}
-                    value={object[field.name] ?? ""}
+                    value={object[field.name]}
                 />
             </div>
         );
@@ -49,7 +49,7 @@ export default function FormField({field, objects, handleChange, object, default
                     className={field.input_class ?? "form-control"}
                     id={field.input_id ?? field.name}
                     onChange={(event) => handleChange(field.name, event.target.value)}
-                    value={defaultValue ?? 0}
+                    value={object[field.name]}
                 />
             </div>
         );
@@ -62,8 +62,8 @@ export default function FormField({field, objects, handleChange, object, default
                     type="checkbox"
                     className={field.input_class ?? "form-check-input"}
                     id={field.input_id ?? field.name}
-                    onChange={(event) => handleChange(field.name, event.target.value)}
-                    defaultChecked={defaultValue ?? false}
+                    onChange={(event) => handleChange(field.name, event.target.checked)}
+                    checked={object[field.name]}
                 />
             </div>
         );
@@ -76,7 +76,13 @@ export default function FormField({field, objects, handleChange, object, default
                     value={object[field.name]}
                     className={field.input_class ?? "form-control"}
                     id={field.input_id ?? field.name}
-                    onChange={(event) => handleChange(field.name, event.target.value)}
+                    onChange={(event) => 
+                    {
+                        const selectedOptions = Array.from(event.target.selectedOptions, option=>option.value)
+                    
+                        handleChange(field.name, selectedOptions)
+                    }
+                }
                 >
                     
                     
