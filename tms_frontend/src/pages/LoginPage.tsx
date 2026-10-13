@@ -3,13 +3,16 @@ import axios from 'axios'
 
 import { useNavigate } from "react-router";
 
-import type { ModelNames, UserLogin } from '../utils/models';
-import { LoginForm } from '../utils/models';
+import type { ModelNames, UserLogin, UserRegistration } from '../utils/models';
+import { LoginForm, RegisterForm } from '../utils/models';
 import CreateModelForm from '../ui_components/CreateModelForm';
 import CreateForm from '../ui_components/CreateForm';
 
 
-
+type LoginPageProps = 
+{
+    pageType: string;
+}
 
 
 function snakeCase2Traditional(text: string)
@@ -31,7 +34,7 @@ function snakeCase2Traditional(text: string)
 
 
 
-async function login(payload: UserLogin) {
+async function login(payload: UserLogin | UserRegistration) {
     console.log("[CreateObjectsPageTest.tsx -> login()]")
     const hostName: string = import.meta.env.VITE_BACKEND_HOST
     const portNumber: number = import.meta.env.VITE_BACKEND_PORT_NUMBER
@@ -50,11 +53,11 @@ async function login(payload: UserLogin) {
 
 
 
-export default function LoginPage() {
+export default function LoginPage({pageType}: LoginPageProps) {
 
     const navigate = useNavigate();
     
-    const [values, setValues] = useState<UserLogin>({})
+    const [values, setValues] = useState<UserLogin | UserRegistration>({})
     
     
 
@@ -70,7 +73,7 @@ export default function LoginPage() {
     {
 
         console.log(`[CreateObjectsPageTest.tsx -> onChange(): ${fieldName}]`)
-        setValues((previousValues: UserLogin) => (
+        setValues((previousValues: UserLogin | UserRegistration) => (
             {
                 ...previousValues,
                 [fieldName]: value,
@@ -93,10 +96,10 @@ export default function LoginPage() {
             
             <div className="card">
                 <div className="card-header">
-                    Log-In Page (Test)
+                    {snakeCase2Traditional(pageType)} Page (Test)
                 </div>
                 <div className="card-body">
-                    <CreateForm form={LoginForm} handleChange={onChange} handleSubmit={handleSubmit}/>
+                    <CreateForm form={pageType == "login" ? LoginForm : RegisterForm} handleChange={onChange} handleSubmit={handleSubmit} object={values}/>
                 </div>
                 
             </div>

@@ -7,7 +7,7 @@ type CreateFormProps = {
     form: FormConfig;
     handleChange: (feildName:string, value:string) => void;
     handleSubmit: () => void;
-    object?: UserLogin | UserRegistration;
+    object: UserLogin | UserRegistration;
 }
 
 export default function CreateModelForm({form, handleChange, handleSubmit, object}:CreateFormProps) {
@@ -19,7 +19,7 @@ export default function CreateModelForm({form, handleChange, handleSubmit, objec
 
             
 
-            <FormField key={field.name+"_formField"} field={field} handleChange={handleChange} object={object ?? {}}/>
+            <FormField key={field.name+"_formField"} field={field} handleChange={handleChange} object={object}/>
 
             
         ))}
