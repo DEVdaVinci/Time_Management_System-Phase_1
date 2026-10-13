@@ -34,11 +34,11 @@ function snakeCase2Traditional(text: string)
 
 
 
-async function login(payload: UserLogin | UserRegistration) {
+async function login(payload: UserLogin | UserRegistration, pageType: string) {
     console.log("[CreateObjectsPageTest.tsx -> login()]")
     const hostName: string = import.meta.env.VITE_BACKEND_HOST
     const portNumber: number = import.meta.env.VITE_BACKEND_PORT_NUMBER
-    const url:string = `http://${hostName}:${portNumber.toString()}/login`//!!!!!!!!!!!!!!!!!!!!!!!!!
+    const url:string = `http://${hostName}:${portNumber.toString()}/api/${pageType}/`//!!!!!!!!!!!!!!!!!!!!!!!!!
 
     
 
@@ -46,7 +46,7 @@ async function login(payload: UserLogin | UserRegistration) {
     
     console.log(`creating: \"${url}\" ...`);
     //fetch(url).then((response) => { return response.json() }).then((data)=> {setObjects(data)});        
-    axios.post(url, payload).then((response) => {console.log(response);});
+    return await axios.post(url, payload);
 
     
 }
@@ -64,9 +64,12 @@ export default function LoginPage({pageType}: LoginPageProps) {
     async function handleSubmit()
     {
         console.log("[CreateObjectsPageTest.tsx -> handleSubmit()]")
-        await login(values);
+        const result:any = await login(values, pageType);
 
-        navigate("/");
+        if(result.status === 200)
+        {
+            navigate("/");
+        }
     }
 
     function onChange(fieldName: string, value:any)

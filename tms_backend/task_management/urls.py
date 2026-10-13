@@ -34,4 +34,6 @@ router.register("tasks", TaskViewSet)
 
 urlpatterns = [
     path("", include(router.urls)),
+    path('login/', views.loginPage, name='loginUser'),
+    path('register/', views.registerPage, name='registerUser'),
 ]

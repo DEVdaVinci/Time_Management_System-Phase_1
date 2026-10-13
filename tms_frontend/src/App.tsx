@@ -15,9 +15,11 @@ import LoginPage from './pages/LoginPage'
 
 
 export function LoginRoute() {
-  const model_name = "login"
+  
 
-  return <LoginPage/>
+  const { pageType } = useParams()
+
+  return <LoginPage pageType={pageType}/>
 
 }
 
@@ -66,7 +68,7 @@ function App() {
     <>
       <Routes>
         <Route index element={ <Homepage/> }/>
-        <Route path="login" element={ <LoginRoute/>}/>
+        <Route path="auth/:pageType" element={ <LoginRoute/>}/>
         <Route path="list/:model_name" element={ <ListObjectsRoute/>}/>
         <Route path="create/:model_name" element={ <CreateObjectsRoute/>}/>
         <Route path="read/:model_name/:id" element={ <ReadObjectsRoute/>}/>
