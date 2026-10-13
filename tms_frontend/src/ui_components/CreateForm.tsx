@@ -66,9 +66,9 @@ export default function CreateForm<M extends ModelNames>({model_name, form, hand
             
 
             field.connection ? 
-            <FormField key={field.name+"_formField"} field={field} objects={connectionObjects[field.connection!]} handleChange={handleChange} object={object} />
+            <FormField key={field.name+"_formField"} field={field} objects={connectionObjects[field.connection!]} handleChange={handleChange} object={object ?? {}} />
             :
-            <FormField key={field.name+"_formField"} field={field} handleChange={handleChange} object={object}/>
+            <FormField key={field.name+"_formField"} field={field} handleChange={handleChange} object={object ?? {}}/>
 
             
         ))}
