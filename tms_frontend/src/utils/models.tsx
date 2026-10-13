@@ -27,6 +27,48 @@ export interface BaseModel_Read extends BaseModel {
     version_number_minor: number;
 }
 
+
+//============================================================================================================
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+export interface UserLogin {
+    username: string;
+    password: string;
+}
+export interface UserRegistration extends UserLogin {
+    password2: string;
+    email?: string;
+}
+
+export const LoginForm: FormConfig = {
+    feilds: [
+        {
+            kind: "text", name: "username",
+        },
+        {
+            kind: "text", name: "password",
+        },
+    ],
+}
+
+export const RegisterForm: FormConfig = {
+    feilds: [
+        {
+            kind: "text", name: "username",
+        },
+        {
+            kind: "text", name: "password",
+        },
+        {
+            kind: "text", name: "password2",
+        },
+        {
+            kind: "text", name: "email",
+        },
+    ],
+}
+
+
 // Category: writes use relationship IDs; reads retain nested objects.
 export interface BaseCategory {
     is_root: boolean;
@@ -57,6 +99,8 @@ export interface Tag_Write_Detail
 export interface Tag_Read extends BaseModel_Write, BaseModel_Detail {
     superiors?: Tag_Write_Detail[];
 }
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//============================================================================================================
 
 // Every entry has all four required representations.
 // Update still includes id because your existing updateRequest reads payload.id.
@@ -67,6 +111,8 @@ type ModelType<Create, Update, Shallow, Deep> = {
     Read_deep: Deep;
 };
 
+//============================================================================================================
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 type ModelMap = {
     category: ModelType<
         Category_Write_List, Category_Write_Detail,
@@ -76,7 +122,11 @@ type ModelMap = {
         Tag_Write_List, Tag_Write_Detail,
         Tag_Write_Detail, Tag_Read
     >;
+    
 };
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//============================================================================================================
+
 
 export type ModelNames = keyof ModelMap;
 
@@ -160,6 +210,8 @@ function commonFields(model: ModelNames): FormField[] {
     ];
 }
 
+//============================================================================================================
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 export const models: Record<ModelNames, ModelInfo> = {
     category: {
         model_name: "category",
@@ -197,3 +249,5 @@ export const models: Record<ModelNames, ModelInfo> = {
         APIs: modelAPIs("api/tags"),
     },
 };
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//============================================================================================================

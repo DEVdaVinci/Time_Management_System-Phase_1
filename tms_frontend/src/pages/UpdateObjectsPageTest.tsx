@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 
 import type { ModelNames, ModelTypes, ModelInfo, UpdateRequest, Category_Write_List } from '../utils/models';
 import { models } from '../utils/models';
-import CreateForm from '../ui_components/CreateForm';
+import CreateModelForm from '../ui_components/CreateModelForm';
 import { updateRequest, readRequest } from '../utils/apiRequests';
 
 
@@ -109,7 +109,7 @@ export default function UpdatePage<M extends ModelNames>({model_name, id}:Update
                     Update {snakeCase2Traditional(model_name)} Page (Test)
                 </div>
                 <div className="card-body">
-                    <CreateForm form={modelInfo.formConfig} model_name={model_name} handleChange={onChange} handleSubmit={handleSubmit} object={values}/>
+                    <CreateModelForm form={modelInfo.formConfig} model_name={model_name} handleChange={onChange} handleSubmit={handleSubmit} object={values}/>
                 </div>
                 
             </div>

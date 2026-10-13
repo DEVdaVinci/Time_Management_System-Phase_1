@@ -11,8 +11,15 @@ import CreatePage from './pages/CreateObjectsPageTest'
 import UpdatePage from './pages/UpdateObjectsPageTest'
 import ReadPage from './pages/ReadObjectsPageTest'
 import DeletePage from './pages/DeleteObjectsPageTest'
+import LoginPage from './pages/LoginPage'
 
 
+export function LoginRoute() {
+  const model_name = "login"
+
+  return <LoginPage/>
+
+}
 
 export function ListObjectsRoute() {
   const { model_name } = useParams()
@@ -59,6 +66,7 @@ function App() {
     <>
       <Routes>
         <Route index element={ <Homepage/> }/>
+        <Route path="login" element={ <LoginRoute/>}/>
         <Route path="list/:model_name" element={ <ListObjectsRoute/>}/>
         <Route path="create/:model_name" element={ <CreateObjectsRoute/>}/>
         <Route path="read/:model_name/:id" element={ <ReadObjectsRoute/>}/>

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 
 import type { ModelNames, ModelTypes, ModelInfo, CreateRequest, Category_Write_List } from '../utils/models';
 import { models } from '../utils/models';
-import CreateForm from '../ui_components/CreateForm';
+import CreateModelForm from '../ui_components/CreateModelForm';
 
 
 type CreatePageProps<M extends ModelNames> = {
@@ -120,7 +120,7 @@ export default function CreatePage<M extends ModelNames>({model_name}:CreatePage
                     Create {snakeCase2Traditional(model_name)} Page (Test)
                 </div>
                 <div className="card-body">
-                    <CreateForm form={modelInfo.formConfig} model_name={model_name} handleChange={onChange} handleSubmit={handleSubmit}/>
+                    <CreateModelForm form={modelInfo.formConfig} model_name={model_name} handleChange={onChange} handleSubmit={handleSubmit}/>
                 </div>
                 
             </div>
