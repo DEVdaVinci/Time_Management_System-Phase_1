@@ -1,5 +1,5 @@
 import React, { useState} from 'react'
-import axios from 'axios'
+import axios from "../utils/axiosConfig";
 
 import { useNavigate } from "react-router";
 
@@ -68,7 +68,7 @@ export default function LoginPage({pageType}: LoginPageProps) {
 
         if(result.status === 200)
         {
-            navigate("/");
+            navigate("/home");
         }
     }
 

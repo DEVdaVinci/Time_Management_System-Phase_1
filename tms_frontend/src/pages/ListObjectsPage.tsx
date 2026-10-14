@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
+import axios from "../utils/axiosConfig";
 import TaskRow from '../ui_components/TaskRow';
 import { models, type ListResponse, type ModelInfo, type ModelNames, type ModelTypes } from '../utils/models';
 //import type React from 'react';
@@ -75,7 +75,7 @@ export default function ObjectsPage<M extends ModelNames>({model_name}:ObjectsPa
                     {objects.map((object) => (
                         <TaskRow id={object.id.toString()} title={object.name} description={object.description} onRead={readButtonClicked} onEdit={editButtonClicked} onDelete={deleteButtonClicked}/>
                     ))}
-                    <a href="/" className="btn btn-primary">Home</a>
+                    <a href="/home" className="btn btn-primary">Home</a>
                 </div>
             </div>
             <div>

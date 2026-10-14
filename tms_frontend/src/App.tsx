@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
@@ -12,10 +12,10 @@ import UpdatePage from './pages/UpdateObjectsPageTest'
 import ReadPage from './pages/ReadObjectsPageTest'
 import DeletePage from './pages/DeleteObjectsPageTest'
 import LoginPage from './pages/LoginPage'
+import axios from './utils/axiosConfig'
 
 
 export function LoginRoute() {
-  
 
   const { pageType } = useParams()
 
@@ -62,12 +62,15 @@ export function DeleteObjectsRoute() {
 }
 
 function App() {
-  
+   useEffect(() => {
+        axios.get("http://localhost:8000/api/csrf/");
+    }, []);
 
   return (
     <>
       <Routes>
-        <Route index element={ <Homepage/> }/>
+        <Route index element={ <LoginPage pageType={"login"}/> }/>
+        <Route path="home" element={ <Homepage/>}/>
         <Route path="auth/:pageType" element={ <LoginRoute/>}/>
         <Route path="list/:model_name" element={ <ListObjectsRoute/>}/>
         <Route path="create/:model_name" element={ <CreateObjectsRoute/>}/>

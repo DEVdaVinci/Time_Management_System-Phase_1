@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
+import axios from "../utils/axiosConfig";
+
 
 import { useNavigate } from "react-router";
 
@@ -87,7 +88,7 @@ export default function CreatePage<M extends ModelNames>({model_name}:CreatePage
         console.log(`Payload: ${payload}`)
         await createObject(model_name, payload, modelInfo);
 
-        navigate("/");
+        navigate("/home");
     }
 
     function onChange(fieldName: string, value:any)

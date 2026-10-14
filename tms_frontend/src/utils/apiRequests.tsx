@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from "../utils/axiosConfig";
 import type { ListResponse, ModelInfo, ModelNames, UpdateRequest, CreateRequest, WriteResponse, ReadResponse } from '../utils/models';
 
 
