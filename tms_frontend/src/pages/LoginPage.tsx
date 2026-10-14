@@ -63,13 +63,18 @@ export default function LoginPage({pageType}: LoginPageProps) {
 
     async function handleSubmit()
     {
+        event.preventDefault();
+
         console.log("[CreateObjectsPageTest.tsx -> handleSubmit()]")
         const result:any = await login(values, pageType);
-
+        
+        console.log(`Status = ${result.status}`)
+        
         if(result.status === 200)
         {
             navigate("/home");
         }
+
     }
 
     function onChange(fieldName: string, value:any)

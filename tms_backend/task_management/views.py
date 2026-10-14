@@ -7,7 +7,9 @@ from django.http import HttpRequest, HttpResponse, JsonResponse
 from .models import *
 from rest_framework.request import Request
 from rest_framework.response import Response
+from rest_framework.decorators import api_view
 from django.contrib.auth import authenticate, login
+
 
 
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -21,7 +23,7 @@ def csrf(request):
 
 
 
-
+@api_view(["POST"])
 def loginPage(request: Request):
     username = request.data.get("username")
     password = request.data.get("password")
